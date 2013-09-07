@@ -13,26 +13,46 @@ import com.mongodb.MongoClient;
 
 public class SellerInfoFetcher {
 
-	private String address;
-	private ArrayList<String> products;
-	private int contactNumber;
-	private ArrayList<String> types;
+	public static void main(String[] args) throws UnknownHostException {
+		SellerInfoFetcher obj = new SellerInfoFetcher(1);
+		System.out.println(obj);
+	}
 
-	private HashMap<String, ArrayList<String>> typeDetails;
-	private HashMap<String, Integer> idPerType;
-	private String name;
 	private int sid;
+	private String name;
+	private String address;
+	private String contactNumber;
+
+	private ArrayList<String> types;
+	private HashMap<String, ArrayList<String>> typeDetails;
+	private HashMap<String, ArrayList<String>> perEntryDetil;
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setTypes(ArrayList<String> types) {
+		this.types = types;
+	}
+
+	public void setTypeDetails(HashMap<String, ArrayList<String>> typeDetails) {
+		this.typeDetails = typeDetails;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public ArrayList<String> getProducts() {
-		return products;
+	public String getContactNumber() {
+		return contactNumber;
 	}
 
-	public int getContactNumber() {
-		return contactNumber;
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 
 	public ArrayList<String> getTypes() {
@@ -43,16 +63,32 @@ public class SellerInfoFetcher {
 		return typeDetails;
 	}
 
-	public HashMap<String, Integer> getIdPerType() {
-		return idPerType;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public SellerInfoFetcher(int sid) throws UnknownHostException {
+		this.sid = sid;
+		this.typeDetails = new HashMap<String, ArrayList<String>>();
+		this.perEntryDetil = new HashMap<String, ArrayList<String>>();
 		DataConnection.loadSeller(sid, this);
+	}
+
+	public HashMap<String, ArrayList<String>> getPerEntryDetil() {
+		return perEntryDetil;
+	}
+
+	public void setPerEntryDetil(
+			HashMap<String, ArrayList<String>> perEntryDetil) {
+		this.perEntryDetil = perEntryDetil;
+	}
+
+	@Override
+	public String toString() {
+		return "SellerInfoFetcher [sid=" + sid + ", name=" + name
+				+ ", address=" + address + ", contactNumber=" + contactNumber
+				+ ", types=" + types + ", typeDetails=" + typeDetails
+				+ ", perEntryDetil=" + perEntryDetil + "]";
 	}
 
 }
@@ -78,8 +114,26 @@ class DataConnection {
 		cursor = dbc.find(query);
 
 		DBObject dbObj = cursor.next();
-		Object list = dbObj.get("Type");
-		System.out.println(list);
+
+		for (String key : dbObj.keySet()) {
+			if (key.equals("Type"))
+				sif.setTypes((ArrayList<String>) dbObj.get("Type"));
+			else if (key.equals("Name"))
+				sif.setName(dbObj.get("Name").toString());
+			else if (key.equals("Contact"))
+				sif.setContactNumber(dbObj.get("Contact").toString());
+			else if (key.equals("Address"))
+				sif.setName(dbObj.get("Address").toString());
+		}
+
+		for (String t : sif.getTypes()) {
+			ArrayList<String> list = (ArrayList<String>) dbObj.get(t);
+			sif.getTypeDetails().put(t, list);
+			for (String entry : list) {
+				sif.getPerEntryDetil().put(entry,
+						(ArrayList<String>) dbObj.get(entry));
+			}
+		}
 
 	}
 }
