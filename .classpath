@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-webmvc.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring.jar"/>
 	<classpathentry kind="lib" path="C:/Users/asishsi/Downloads/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jstl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
