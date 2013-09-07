@@ -20,7 +20,6 @@ public class DefaultController implements Controller {
 
     	String now = (new Date()).toString();
         logger.info("Returning hello view with " + now);
-
         return new ModelAndView("hello", "now", now);
     }
 }
