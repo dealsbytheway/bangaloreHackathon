@@ -98,7 +98,7 @@ public class SellerInfoFetcher implements SellerDataProvider {
 	}
 
 	@Override
-	public void cancelDealFromSeller(String sellerId, String dealId) {
+	public void cancelDealFromSeller(String dealId) {
 		try {
 			Deal.removeDeal(dealId);
 		} catch (UnknownHostException e) {
@@ -145,7 +145,7 @@ public class SellerInfoFetcher implements SellerDataProvider {
 
 	@Override
 	public void addNewDealFromSeller(String sellerId, ArrayList<String> tags,
-			Timestamp startDate, Timestamp endDate, float discount) {
+			Timestamp startDate, Timestamp endDate, String discount) {
 		Deal d = new Deal(sellerId, discount, tags, startDate, endDate);
 		try {
 			d.insert();
