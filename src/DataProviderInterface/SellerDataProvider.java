@@ -14,8 +14,8 @@ public interface SellerDataProvider {
 
 	public void updateDealFromSeller(Deal d);
 
-	public void cancelDealFromSeller(String sellerId, String dealId);
+	public void cancelDealFromSeller(String dealId);
 
 	public void addNewDealFromSeller(String sellerId, ArrayList<String> tags,
-			Timestamp startDate, Timestamp endDate, float discount);
+			Timestamp startDate, Timestamp endDate, String discount);
 }

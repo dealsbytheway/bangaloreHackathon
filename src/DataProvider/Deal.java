@@ -16,7 +16,7 @@ public class Deal {
 
 	private String dealId;
 	private String sellerId;
-	private float discount;
+	private String discount;
 	private ArrayList<String> tag;
 	private Timestamp startDate;
 	private Timestamp endDate;
@@ -35,7 +35,7 @@ public class Deal {
 		this.sellerId = obj.get("SellerID").toString();
 		this.startDate = (Timestamp) obj.get("StartDate");
 		this.endDate = (Timestamp) obj.get("EndDate");
-		this.discount = Float.parseFloat(obj.get("Discount").toString());
+		this.discount = obj.get("Discount").toString();
 		this.dealId = obj.get("_id").toString();
 		this.latitude = Float.parseFloat(obj.get("Latitude").toString());
 		this.longitude = Float.parseFloat(obj.get("Longitude").toString());
@@ -43,7 +43,7 @@ public class Deal {
 		tag.add(obj.get("Tag").toString());
 	}
 
-	public Deal(String sellerId, float discount, ArrayList<String> tag,
+	public Deal(String sellerId, String discount, ArrayList<String> tag,
 			Timestamp startDate, Timestamp endDate) {
 		super();
 		this.sellerId = sellerId;
@@ -53,7 +53,7 @@ public class Deal {
 		this.endDate = endDate;
 	}
 
-	public float getDiscountPercent() {
+	public String getDiscountPercent() {
 		return discount;
 	}
 
@@ -85,8 +85,8 @@ public class Deal {
 		return longitude;
 	}
 
-	public void setDiscountPercent(float discountPercent) {
-		this.discount = discountPercent;
+	public void setDiscountPercent(String discount) {
+		this.discount = discount;
 	}
 
 	public void setStartDate(Timestamp startDate) {
@@ -210,7 +210,7 @@ class DealDataConnection {
 
 		Timestamp startDate = d.getStartDate();
 		Timestamp endDate = d.getEndDate();
-		float discount = d.getDiscountPercent();
+		String discount = d.getDiscountPercent();
 		String dealId = nextIncrement();
 		for (String tag : d.getTag()) {
 			query.clear();
