@@ -185,7 +185,7 @@ class DealDataConnection {
 			} else
 				map.get(key).getTag().add(obj.get("Tag").toString());
 		}
-		ArrayList<Deal> list = new ArrayList<>();
+		ArrayList<Deal> list = new ArrayList<Deal>();
 		for (String key : map.keySet()) {
 			list.add(map.get(key));
 		}

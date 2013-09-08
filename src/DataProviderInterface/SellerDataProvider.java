@@ -12,7 +12,7 @@ public interface SellerDataProvider {
 
 	public ArrayList<Deal> getSellerInactiveDeals(String sellerId);
 
-	public void updateDealFromSeller(Deal d);
+	public void updateDealFromSeller(Deal deal);
 
 	public void cancelDealFromSeller(String dealId);
 
